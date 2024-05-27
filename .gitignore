@@ -1,0 +1,53 @@
+.gitkeep
+.user.yml
+package-lock.yml
+target/
+dbt_packages/
+logs/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+venv
+
+# Ignore environment files
+.env
+
+# Ignore credentials and secrets
+profiles.yml
+*.key
+*.pem
+*.cert
+*.crt
+*.cer
+*.p12
+*.pfx
+*.keychain
+*.jks
+
+# Ignore IDE and editor files
+.idea/
+.vscode/
+
+# Ignore compiled files
+*.pyc
+*.pyo
+*.dll
+*.exe
+*.so
+*.dylib
+
+# Ignore logs and temporary files
+logs/
+temp/
+*.log
+
+# Ignore package dependencies
+/venv/
+/node_modules/
+/yarn-error.log
+/package-lock.json
+/yarn.lock
+
+# Ignore sensitive configuration files
+config.ini

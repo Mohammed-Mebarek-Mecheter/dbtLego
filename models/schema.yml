@@ -1,0 +1,249 @@
+version: 2
+
+sources:
+  - name: lego_schema
+    database: lego_db
+    schema: lego_schema
+    tables:
+      - name: inventories
+      - name: part_categories
+      - name: parts
+      - name: colors
+      - name: minifigs
+      - name: sets
+      - name: themes
+      - name: inventory_parts
+      - name: inventory_minifigs
+      - name: inventory_sets
+      - name: part_relationships
+      - name: elements
+
+models:
+  - name: inventories
+    description: "Contains details of inventory sets."
+    columns:
+      - name: id
+        description: "Primary key for the inventory."
+        tests:
+          - unique
+          - not_null
+      - name: version
+        description: "Version of the inventory set."
+        tests:
+          - not_null
+      - name: set_num
+        description: "Set number associated with the inventory."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('sets')
+              field: set_num
+
+  - name: part_categories
+    description: "Contains part categories."
+    columns:
+      - name: id
+        description: "Primary key for part category."
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: "Name of the part category."
+        tests:
+          - not_null
+
+  - name: parts
+    description: "Contains parts."
+    columns:
+      - name: part_num
+        description: "Primary key for the part."
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: "Name of the part."
+      - name: part_cat_id
+        description: "Foreign key to part categories."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('part_categories')
+              field: id
+
+  - name: colors
+    description: "Contains color details."
+    columns:
+      - name: id
+        description: "Primary key for color."
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: "Name of the color."
+        tests:
+          - not_null
+      - name: rgb
+        description: "RGB value of the color."
+      - name: is_trans
+        description: "Indicates if the color is transparent."
+
+  - name: minifigs
+    description: "Contains minifig details."
+    columns:
+      - name: fig_num
+        description: "Primary key for the minifig."
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: "Name of the minifig."
+      - name: num_parts
+        description: "Number of parts in the minifig."
+      - name: img_url
+        description: "Image URL of the minifig."
+
+  - name: sets
+    description: "Contains set details."
+    columns:
+      - name: set_num
+        description: "Primary key for the set."
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: "Name of the set."
+      - name: year
+        description: "Year the set was released."
+      - name: theme_id
+        description: "Foreign key to themes."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('themes')
+              field: id
+      - name: num_parts
+        description: "Number of parts in the set."
+      - name: img_url
+        description: "Image URL of the set."
+
+  - name: themes
+    description: "Contains theme details."
+    columns:
+      - name: id
+        description: "Primary key for the theme."
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: "Name of the theme."
+      - name: parent_id
+        description: "Parent theme ID."
+      - name: level
+        description: "Level in the theme hierarchy."
+
+  - name: inventory_parts
+    description: "Contains inventory part details."
+    columns:
+      - name: inventory_id
+        description: "Foreign key to inventories."
+        tests:
+          - not_null
+      - name: part_num
+        description: "Foreign key to parts."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('parts')
+              field: part_num
+      - name: color_id
+        description: "Foreign key to colors."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('colors')
+              field: id
+      - name: quantity
+        description: "Quantity of the part in the inventory."
+      - name: is_spare
+        description: "Indicates if the part is a spare."
+      - name: img_url
+        description: "Image URL of the part."
+
+  - name: inventory_minifigs
+    description: "Contains inventory minifig details."
+    columns:
+      - name: inventory_id
+        description: "Foreign key to inventories."
+        tests:
+          - not_null
+      - name: fig_num
+        description: "Foreign key to minifigs."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('minifigs')
+              field: fig_num
+      - name: quantity
+        description: "Quantity of the minifig in the inventory."
+
+  - name: inventory_sets
+    description: "Contains inventory set details."
+    columns:
+      - name: inventory_id
+        description: "Foreign key to inventories."
+        tests:
+          - not_null
+      - name: set_num
+        description: "Foreign key to sets."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('sets')
+              field: set_num
+      - name: quantity
+        description: "Quantity of the set in the inventory."
+
+  - name: part_relationships
+    description: "Contains part relationship details."
+    columns:
+      - name: rel_type
+        description: "Type of the relationship."
+      - name: child_part_num
+        description: "Foreign key to child part."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('parts')
+              field: part_num
+      - name: parent_part_num
+        description: "Foreign key to parent part."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('parts')
+              field: part_num
+
+  - name: elements
+    description: "Contains element details."
+    columns:
+      - name: element_id
+        description: "Primary key for the element."
+        tests:
+          - unique
+          - not_null
+      - name: part_num
+        description: "Foreign key to parts."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('parts')
+              field: part_num
+      - name: color_id
+        description: "Foreign key to colors."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('colors')
+              field: id
+      - name: design_id
+        description: "Design ID of the element."

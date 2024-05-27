@@ -1,0 +1,21 @@
+name: 'dbtLego'
+version: '1.0'
+config-version: 2
+
+profile: 'dbtLego'
+
+model-paths: ["models"]
+target-path: "target"
+clean-targets: ["target"]
+
+models:
+  dbtLego:
+    +materialized: table
+    +persist_docs:
+      relation: true
+      columns: true
+
+dispatch:
+  - macro_namespace: dbt_utils
+    search_order: ['dbt_utils', 'dbt']
+

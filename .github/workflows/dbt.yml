@@ -1,0 +1,35 @@
+name: dbt CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  dbt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup dbt
+        uses: getdbt/dbt-action@v1.0.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run dbt
+        env:
+          DBT_SNOWFLAKE_USER: ${{ secrets.DBT_SNOWFLAKE_USER }}
+          DBT_SNOWFLAKE_PASSWORD: ${{ secrets.DBT_SNOWFLAKE_PASSWORD }}
+          DBT_SNOWFLAKE_ACCOUNT: ${{ secrets.DBT_SNOWFLAKE_ACCOUNT }}
+        run: |
+          dbt deps
+          dbt seed
+          dbt run
+          dbt test
+          dbt docs generate
