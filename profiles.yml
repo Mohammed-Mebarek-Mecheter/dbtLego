@@ -1,7 +1,7 @@
 dbtLego:
-  target: dev_snowflake
+  target: dbtLego
   outputs:
-    dev_snowflake:
+    dbtLego:
       type: snowflake
       account: ${DBT_SNOWFLAKE_ACCOUNT}
       user: ${DBT_SNOWFLAKE_USER}
