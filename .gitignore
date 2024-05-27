@@ -12,7 +12,7 @@ venv
 
 # Ignore environment files
 .env
-
+set_env_var.sh
 # Ignore credentials and secrets
 *.key
 *.pem
