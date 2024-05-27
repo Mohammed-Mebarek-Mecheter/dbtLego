@@ -1,7 +1,6 @@
 .gitkeep
 .user.yml
 package-lock.yml
-target/
 dbt_packages/
 logs/
 
