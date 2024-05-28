@@ -1,0 +1,14 @@
+
+    
+    
+
+select
+    fig_num as unique_field,
+    count(*) as n_records
+
+from lego_db.lego_schema.minifigs
+where fig_num is not null
+group by fig_num
+having count(*) > 1
+
+

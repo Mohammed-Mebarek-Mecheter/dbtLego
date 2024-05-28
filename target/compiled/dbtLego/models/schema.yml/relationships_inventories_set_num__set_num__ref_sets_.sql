@@ -1,0 +1,25 @@
+
+    
+    
+
+with child as (
+    select set_num as from_field
+    from lego_db.lego_schema.inventories
+    where set_num is not null
+),
+
+parent as (
+    select set_num as to_field
+    from lego_db.lego_schema.sets
+)
+
+select
+    from_field
+
+from child
+left join parent
+    on child.from_field = parent.to_field
+
+where parent.to_field is null
+
+

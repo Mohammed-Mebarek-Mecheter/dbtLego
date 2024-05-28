@@ -1,0 +1,84 @@
+version: 2
+
+models:
+  - name: sets_by_year
+    description: "Analysis of the number of sets released each year"
+    tests:
+      - not_null:
+          column_name: year
+      - unique:
+          column_name: year
+
+  - name: most_common_parts
+    description: "Most common parts in sets"
+    tests:
+      - not_null:
+          column_name: part_num
+      - not_null:
+          column_name: total_quantity
+
+  - name: sets_with_most_minifigs
+    description: "Sets with the highest number of minifigures"
+    tests:
+      - not_null:
+          column_name: set_num
+      - not_null:
+          column_name: total_minifigs
+
+  - name: avg_parts_per_set_by_year
+    description: "Average number of parts per set by year"
+    tests:
+      - not_null:
+          column_name: year
+      - not_null:
+          column_name: avg_num_parts
+
+  - name: most_common_colors
+    description: "Most frequently used colors in parts"
+    tests:
+      - not_null:
+          column_name: color_name
+      - not_null:
+          column_name: part_count
+
+  - name: part_categories_with_most_parts
+    description: "Part categories with the most distinct parts"
+    tests:
+      - not_null:
+          column_name: category_name
+      - not_null:
+          column_name: num_parts
+
+  - name: theme_popularity_over_time
+    description: "Popularity of themes over time by number of sets released"
+    tests:
+      - not_null:
+          column_name: theme_name
+      - not_null:
+          column_name: year
+      - not_null:
+          column_name: num_sets
+
+  - name: minifig_distribution_by_parts
+    description: "Distribution of minifigures based on their part count"
+    tests:
+      - not_null:
+          column_name: num_parts
+      - not_null:
+          column_name: num_minifigs
+
+  - name: parts_with_multiple_colors
+    description: "Parts that come in the most variety of colors"
+    tests:
+      - not_null:
+          column_name: part_num
+      - not_null:
+          column_name: color_count
+
+  - name: parent_child_part_relationships
+    description: "Parent-child relationships among parts"
+    tests:
+      - not_null:
+          column_name: parent_part_num
+      - not_null:
+          column_name: child_part_num
