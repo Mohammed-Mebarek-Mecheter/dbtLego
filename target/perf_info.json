@@ -5,8 +5,8 @@
     "static_analysis_parsed_path_count": 0,
     "is_partial_parse_enabled": true,
     "is_static_analysis_enabled": true,
-    "read_files_elapsed": 0.8373255999977118,
-    "load_all_elapsed": 1.9947247999989486,
+    "read_files_elapsed": 0.3944499999997788,
+    "load_all_elapsed": 0.9560966000026383,
     "projects": [
         {
             "project_name": "dbtLego",
